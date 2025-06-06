@@ -1,0 +1,87 @@
+---
+title: HRS
+author: Andreas M. Brandmaier
+date: 2023-05-02
+repro:
+  packages:
+    - ggplot2
+    - semtree
+    - aaronpeikert/repro@adb5fa569
+    - tidyverse
+    - haven
+    - here
+  scripts:
+    - R/preprocessing.R
+    - R/tree.R
+    - R/forest.R
+  data:
+    rndhrs: data/rndhrs_o.csv
+output: html_document
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(repro)
+# load packages from yaml header
+automate_load_packages()
+# include external scripts
+automate_load_scripts()
+```
+
+## About
+
+This project contains the code to (re)produce the SEM tree and forest analysis
+reported in 
+
+- Brandmaier, A. M., & Jacobucci, R. C. (2023). Machine learning approaches to structural equation modeling. In R. H. Hoyle (Ed.), _Handbook of structural equation modeling_ (2nd ed., pp. 722–739). Guilford Press.
+
+
+## Reproducibility
+
+This project is reproducible using the `repro` approach (see https://github.com/aaronpeikert/repro) as described by:
+
+- Peikert, A., & Brandmaier, A. M. (2021). A reproducible data analysis workflow with R Markdown, Git, Make, and Docker. _Quantitative and Computational Methods in Behavioral Sciences_, 1, Article e3763. https://doi.org/10.5964/qcmb.3763
+
+- Peikert, A., van Lissa, C. J., & Brandmaier, A. M. (2021). Reproducible research in R: A tutorial on how to do the same thing more than once. _Psych_, 3(4), 836–867. https://doi.org/10.3390/psych3040053
+
+Note that for legal reasons, we cannot share the raw data, that is,
+the analyses can only be reproduced if you obtain the HRS raw data
+through official channels.
+
+If you are unsure whether or not you have `git` `make` & `docker` on your system, try running this in your R console:
+
+```{r, eval=FALSE}
+check_git()
+check_make()
+check_docker()
+```
+
+## Preprocessing
+
+The following code prepares the raw data for subsequent modeling.
+
+```{r preprocessing}
+if (!exists("data/rndhrs_subset.csv")) {
+  source("R/preprocessing.R")
+}
+```
+
+## SEM Tree Analysis
+
+```{r tree}
+# see R/tree.R
+# this chunk (as long as it is empty, comments don't count) runs external
+# code from scripts listed in the YAML
+# see also https://yihui.org/knitr/demo/externalization/
+```
+
+
+## SEM Forest Analysis
+
+```{r forest}
+# see R/forest.R
+# this chunk (as long as it is empty, comments don't count) runs external
+# code from scripts listed in the YAML
+# see also https://yihui.org/knitr/demo/externalization/
+```
